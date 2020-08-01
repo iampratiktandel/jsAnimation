@@ -1,6 +1,7 @@
 // for more info see https://www.khanacademy.org/math/cc-seventh-grade-math/cc-7th-geometry/cc-7th-area-circ-challenge/v/radius-change-impact
 
 const delay = 5000; //number of milliseconds to wait before updating the explanation text
+const animationDuration = 5000;
 const vizContainer = document.querySelector("#vizContainer");
 const explanationContainer = document.querySelector("#explanationContainer");
 const explanationText = document.querySelector("#explanationText");
@@ -14,6 +15,7 @@ const dataset = [{"title":"live within 50mi of a nuclear plant for a year", "mea
                {"title":"receive a single chest CT scan", "measurement": 7000, "multiplier": 0.028, "color": "#80ff80"} //green
             ];
 const defaultMultiplier = dataset[2].multiplier; // keeps a reference to the multiplier value of the third entry
+let circles = [];
 
 dataset.forEach((dataLine, index) => {
    let newCircle = document.createElement("div");
@@ -25,6 +27,7 @@ dataset.forEach((dataLine, index) => {
    newCircle.style.zIndex = dataset.length - index;
    newCircle.style.top = ((dataLine.measurement*defaultMultiplier)/2*-1) + "vw";
    newCircle.style.left = ((dataLine.measurement*defaultMultiplier)/2*-1) + "vw";
+   circles.push(newCircle);
    vizContainer.append(newCircle);
 
    let updateText = () => {
@@ -34,3 +37,27 @@ dataset.forEach((dataLine, index) => {
    }
    window.setTimeout(updateText, index*delay);
 });
+
+for(let i = 0; i < (dataset.length - 1); i++) {
+    let multiplierFrom = dataset[i].multiplier;
+    let multiplierTo   = dataset[i + 1].multiplier;
+
+    circles.forEach((circle, circleId) => {
+        let circleMeasurement = dataset[circleId].measurement;
+
+        let startWidth     = (circleMeasurement  * multiplierFrom)       + "vw";
+        let targetWidth    = (circleMeasurement  * multiplierTo)         + "vw";
+        let startHeight    = (circleMeasurement  * multiplierFrom)       + "vw";
+        let targetHeight   = (circleMeasurement  * multiplierTo)         + "vw";
+        let startTop       = ((circleMeasurement * multiplierFrom)/2*-1) + "vw";
+        let targetTop      = ((circleMeasurement * multiplierTo)/2*-1)   + "vw";
+        let startLeft      = ((circleMeasurement * multiplierFrom)/2*-1) + "vw";
+        let targetLeft     = ((circleMeasurement * multiplierTo)/2*-1)   + "vw";
+
+        let keyFramesFrom  = {"width": startWidth,  "height": startHeight,  "top": startTop,  "left": startLeft};
+        let keyFramesTo    = {"width": targetWidth, "height": targetHeight, "top": targetTop, "left": targetLeft};
+        let animateOptions = {"duration": animationDuration, "fill": "forwards", "delay": ((i+1) * delay)};
+
+        circle.animate([keyFramesFrom, keyFramesTo], animateOptions);
+    });
+}
