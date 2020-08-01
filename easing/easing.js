@@ -10,8 +10,9 @@ let startAnimation = () => {
     let startKeyframes = {"left": "2vw"};
     let endKeyframes = {"left": "100vw"};
     let options = {
-        duration: 3000
-    };
+        duration: 3000,
+        easing: "cubic-bezier(0.5, 0, 0.75, 0)"
+    }
 
     car.animate([startKeyframes, endKeyframes], options);
 };
