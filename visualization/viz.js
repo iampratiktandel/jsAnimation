@@ -14,3 +14,23 @@ const dataset = [{"title":"live within 50mi of a nuclear plant for a year", "mea
                {"title":"receive a single chest CT scan", "measurement": 7000, "multiplier": 0.028, "color": "#80ff80"} //green
             ];
 const defaultMultiplier = dataset[2].multiplier; // keeps a reference to the multiplier value of the third entry
+
+dataset.forEach((dataLine, index) => {
+   let newCircle = document.createElement("div");
+   newCircle.style.width = (dataLine.measurement*defaultMultiplier) + "vw";
+   newCircle.style.height = (dataLine.measurement*defaultMultiplier) + "vw";
+   newCircle.style.backgroundColor = dataLine.color;
+   newCircle.style.borderRadius = "50%";
+   newCircle.style.position = "absolute";
+   newCircle.style.zIndex = dataset.length - index;
+   newCircle.style.top = ((dataLine.measurement*defaultMultiplier)/2*-1) + "vw";
+   newCircle.style.left = ((dataLine.measurement*defaultMultiplier)/2*-1) + "vw";
+   vizContainer.append(newCircle);
+
+   let updateText = () => {
+      explanationText.innerHTML = dataset[index].title;
+      explanationContainer.style.backgroundColor = dataset[index].color;
+      explanationAmount.innerHTML = "(" + dataset[index].measurement + "micro-sieverts)";
+   }
+   window.setTimeout(updateText, index*delay);
+});
