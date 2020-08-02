@@ -1,6 +1,6 @@
 const successURL = "https://giphy.com/gifs/workingtitlefilms-mr-bean-rowan-atkinson-beans-holiday-kfRlTZDvhLCPvOEey8";
 const failURL    = "https://giphy.com/gifs/fail-sad-pop-jaAXjJcaTngemp4vK8";
-const duration = 10000;
+const duration = [10000, 20000, 30000];
 let numStopped = 0;
 
 const balloons = [
@@ -9,8 +9,8 @@ const balloons = [
   document.querySelector("#yellowBalloon")
 ]
 
-balloons.forEach((balloon) => {
-    balloon.animation = balloon.animate([{top: "80vh"}, {top: "5vh"}], {duration: duration, fill: "forwards"});
+balloons.forEach((balloon, index) => {
+    balloon.animation = balloon.animate([{top: "80vh"}, {top: "5vh"}], {duration: duration[index], fill: "forwards"});
     balloon.animation.onfinish = () => {
       window.location.href = failURL;
     }
