@@ -1,24 +1,37 @@
 body {
-    overflow: hidden;
+  overflow: hidden;
 }
+
 .balloon {
-    position: absolute;
-    width: 20vw;
-    top: 70vh;
+  position: absolute;
+  width: 20vw;
+  top: 70vh;
 }
+
 #greenBalloon {
-    left: 10vw;
+  left: 10vw;
 }
+
 #redBalloon {
-    left: 40vw;
+  left: 40vw;
 }
+
 #yellowBalloon {
-    left: 70vw;
+  left: 70vw;
 }
+
 #spikes {
-    position: absolute;
-    top: 0vh;
-    left: 0vw;
-    width: 100vw;
-    height: 5vh;
+  position: absolute;
+  top: 0vh;
+  left: 0vw;
+  width: 100vw;
+  height: 5vh;
+}
+
+.blabel {
+  position: absolute;
+  top: 20%;
+  left: 15%;
+  font-size: 3vmin;
+  color: rgb(119, 7, 119);
 }
